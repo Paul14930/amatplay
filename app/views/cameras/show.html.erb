@@ -1,0 +1,5 @@
+ <h1>Live Stream from Camera</h1>
+  <video-js id="live-video" class="vjs-default-skin" controls preload="auto" width="640" height="264"
+    data-setup='{"techOrder": ["html5", "flash"]}'>
+    <source src="<%= @camera_rtsp_url %>" type='application/x-mpegURL'>
+  </video-js>

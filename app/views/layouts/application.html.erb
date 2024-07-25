@@ -6,8 +6,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
     <%= javascript_importmap_tags %>
   </head>
 
@@ -15,5 +15,6 @@
     <%# <main class="container mx-auto mt-28 px-5 flex"> %>
       <%= yield %>
     <%# </main> %>
+    <script src="https://vjs.zencdn.net/7.11.4/video.js"></script>
   </body>
 </html>

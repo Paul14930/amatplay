@@ -1,4 +1,3 @@
 web: bundle exec rails server -p $PORT
 css: bin/rails tailwindcss:watch
-worker: bundle exec rails runner "CamerasController.new.stream"
-
+worker: bundle exec rake streaming:start

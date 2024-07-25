@@ -75,7 +75,8 @@ group :test do
 end
 
 group :production do
- gem 'uglifier', '>= 1.3.0'
+gem 'terser'
+
   gem 'rails_12factor'
 end
 

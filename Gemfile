@@ -82,3 +82,4 @@ end
 
 
 gem 'streamio-ffmpeg'
+gem 'aws-sdk-kinesisvideo'

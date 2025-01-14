@@ -1,0 +1,17 @@
+<h1><%= @club.name %></h1>
+<p>Localisation : <%= @club.location %></p>
+
+<h2>Configuration de la caméra :</h2>
+<p>URL RTMP : <%= @club.rtmp_url %></p>
+
+
+
+<h2>Flux en direct :</h2>
+<div style="position: relative; padding-top: 56.25%;">
+  <iframe
+    src="https://customer-e2m7xf8yvrs8kche.cloudflarestream.com/<%= @club.live_input_id %>/iframe"
+    style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
+    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+    allowfullscreen="true">
+  </iframe>
+</div>

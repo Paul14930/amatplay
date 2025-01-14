@@ -83,3 +83,5 @@ end
 
 gem 'streamio-ffmpeg'
 gem 'aws-sdk-kinesisvideo'
+gem 'httparty'
+gem 'dotenv-rails'

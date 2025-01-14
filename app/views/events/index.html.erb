@@ -1,0 +1,5 @@
+<h1>Événements de <%= @club.name %></h1>
+<% @events.each do |event| %>
+  <h2><%= link_to event.name, club_event_path(@club, event) %></h2>
+  <p>Date : <%= event.start_time %></p>
+<% end %>

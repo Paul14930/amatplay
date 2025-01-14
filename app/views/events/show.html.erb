@@ -1,0 +1,6 @@
+<h1><%= @event.name %></h1>
+<p>Date : <%= @event.start_time %></p>
+
+<div class="video-container">
+  <iframe src="https://player.vimeo.com/video/<%= @event.vimeo_video_id %>" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+</div>

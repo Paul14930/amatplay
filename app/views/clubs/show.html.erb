@@ -4,7 +4,13 @@
 <h2>Configuration de la caméra :</h2>
 <p>URL RTMP : <%= @club.rtmp_url %></p>
 
+<%= form_with url: start_recording_club_path(@club), method: :post, class: "d-inline" do %>
+  <%= button_tag "Démarrer l'enregistrement", class: "btn btn-success", data: { confirm: "Êtes-vous sûr de vouloir démarrer l'enregistrement ?" } %>
+<% end %>
 
+<%= form_with url: stop_recording_club_path(@club), method: :post, class: "d-inline" do %>
+  <%= button_tag "Arrêter l'enregistrement", class: "btn btn-danger", data: { confirm: "Êtes-vous sûr de vouloir arrêter l'enregistrement ?" } %>
+<% end %>
 
 <h2>Flux en direct :</h2>
 <div style="position: relative; padding-top: 56.25%;">
@@ -15,3 +21,27 @@
     allowfullscreen="true">
   </iframe>
 </div>
+
+
+<h2>Enregistrements disponibles :</h2>
+<% if @recordings.present? %>
+  <ul>
+    <% @recordings.each do |recording| %>
+      <li>
+        <strong>Nom :</strong> <%= recording.dig("meta", "name") || "Sans nom" %><br>
+        <strong>Créé le :</strong> <%= recording["created"] %><br>
+        <strong>Durée :</strong> <%= (recording["duration"] / 60).round(2) %> minutes<br>
+        <div style="position: relative; padding-top: 56.25%;">
+          <iframe
+            src="<%= recording["preview"] %>"
+            style="border: none; position: absolute; top: 0; left: 0; height: 30%; width: 30%;"
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+            allowfullscreen="true">
+          </iframe>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Aucun enregistrement disponible pour ce flux.</p>
+<% end %>

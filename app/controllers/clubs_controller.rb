@@ -1,11 +1,16 @@
 class ClubsController < ApplicationController
+  before_action :set_club, only: [:start_recording, :stop_recording, :show, :edit, :update, :destroy]
+
   def index
     @clubs = Club.all
   end
 
   def show
-    @club = Club.find(params[:id])
+    cloudflare_service = CloudflareService.new
+    @recordings = cloudflare_service.list_recordings(@club.live_input_id)
   end
+
+
 
   def new
     @club = Club.new
@@ -48,10 +53,40 @@ class ClubsController < ApplicationController
   end
 
 
+  def start_recording
+    cloudflare_service = CloudflareService.new
+    response = cloudflare_service.start_recording(@club.live_input_id)
 
+    if response.code == 200
+      flash[:notice] = "L'enregistrement a démarré avec succès."
+    else
+      error_message = response.parsed_response.dig("errors") || "Erreur inconnue."
+      flash[:alert] = "Impossible de démarrer l'enregistrement : #{error_message}"
+    end
+
+    redirect_to @club
+  end
+
+  def stop_recording
+    cloudflare_service = CloudflareService.new
+    response = cloudflare_service.stop_recording(@club.live_input_id)
+
+    if response.code == 200
+      flash[:notice] = "L'enregistrement a été arrêté avec succès."
+    else
+      error_message = response.parsed_response.dig("errors") || "Erreur inconnue."
+      flash[:alert] = "Impossible d'arrêter l'enregistrement : #{error_message}"
+    end
+
+    redirect_to @club
+  end
 
 
   private
+
+  def set_club
+    @club = Club.find(params[:id])
+  end
 
   def club_params
     params.require(:club).permit(:name, :description, :location)

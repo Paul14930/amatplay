@@ -80,8 +80,8 @@ gem 'terser'
   gem 'rails_12factor'
 end
 
-
-gem 'streamio-ffmpeg'
-gem 'aws-sdk-kinesisvideo'
+# gem 'streamio-ffmpeg'
+# gem 'aws-sdk-kinesisvideo'
 gem 'httparty'
 gem 'dotenv-rails'
+

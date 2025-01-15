@@ -86,3 +86,4 @@ end
 gem 'httparty'
 gem 'dotenv-rails', groups: [:development, :test]
 
+gem 'aws-sdk-s3', '~> 1.114'

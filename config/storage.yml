@@ -32,3 +32,11 @@ local:
 #   service: Mirror
 #   primary: local
 #   mirrors: [ amazon, google, microsoft ]
+
+cloudflare:
+  service: S3
+  access_key_id: <%= ENV['CLOUDFLARE_ACCOUNT_ID'] %>
+  secret_access_key: <%= ENV['CLOUDFLARE_GLOBAL_API_KEY'] %>
+  region: "auto" # Cloudflare R2 n'a pas de région spécifique, utilisez "auto".
+  endpoint: "https://d3270f1852f619d372410867a8b68523.r2.cloudflarestorage.com"
+  bucket: "images" # Nom de votre bucket

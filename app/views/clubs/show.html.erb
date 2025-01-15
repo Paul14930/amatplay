@@ -1,47 +1,26 @@
 <h1><%= @club.name %></h1>
 <p>Localisation : <%= @club.location %></p>
 
-<h2>Configuration de la caméra :</h2>
-<p>URL RTMP : <%= @club.rtmp_url %></p>
 
-<%= form_with url: start_recording_club_path(@club), method: :post, class: "d-inline" do %>
-  <%= button_tag "Démarrer l'enregistrement", class: "btn btn-success", data: { confirm: "Êtes-vous sûr de vouloir démarrer l'enregistrement ?" } %>
-<% end %>
-
-<%= form_with url: stop_recording_club_path(@club), method: :post, class: "d-inline" do %>
-  <%= button_tag "Arrêter l'enregistrement", class: "btn btn-danger", data: { confirm: "Êtes-vous sûr de vouloir arrêter l'enregistrement ?" } %>
-<% end %>
-
-<h2>Flux en direct :</h2>
-<div style="position: relative; padding-top: 56.25%;">
-  <iframe
-    src="https://customer-e2m7xf8yvrs8kche.cloudflarestream.com/<%= @club.live_input_id %>/iframe"
-    style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
-    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-    allowfullscreen="true">
-  </iframe>
-</div>
+<%= image_tag @club.image if @club.image.attached? %>
 
 
-<h2>Enregistrements disponibles :</h2>
-<% if @recordings.present? %>
-  <ul>
-    <% @recordings.each do |recording| %>
-      <li>
-        <strong>Nom :</strong> <%= recording.dig("meta", "name") || "Sans nom" %><br>
-        <strong>Créé le :</strong> <%= recording["created"] %><br>
-        <strong>Durée :</strong> <%= (recording["duration"] / 60).round(2) %> minutes<br>
-        <div style="position: relative; padding-top: 56.25%;">
-          <iframe
-            src="<%= recording["preview"] %>"
-            style="border: none; position: absolute; top: 0; left: 0; height: 30%; width: 30%;"
-            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-            allowfullscreen="true">
-          </iframe>
-        </div>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>Aucun enregistrement disponible pour ce flux.</p>
-<% end %>
+<h2>Caméras</h2>
+<%= link_to "Ajouter une caméra", new_club_camera_path(@club), class: "btn btn-primary" %>
+
+<ul>
+  <% @club.cameras.each do |camera| %>
+    <li>
+        <p>
+    Caméra : <%= link_to camera.live_input_id, club_camera_path(@club, camera) %>
+  </p>
+      <strong>Caméra :</strong> <%= camera.live_input_id %>
+      <br>
+      <strong>Flux RTMP :</strong> <%= camera.rtmp_url %>
+      <br>
+      <strong>Playback URL :</strong> <%= camera.playback_url %>
+      <br>
+      <%= link_to "Supprimer", club_camera_path(@club, camera), method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger" %>
+    </li>
+  <% end %>
+</ul>

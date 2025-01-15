@@ -17,15 +17,17 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
  root 'home#index'
  resources :clubs do
-  # Actions personnalisées au niveau d'un club précis
-  member do
-    post :start_recording
-    post :stop_recording
+  # Gestion des caméras associées à un club
+  resources :cameras, only: [:show, :new, :create, :destroy] do
+    member do
+      post :start_recording
+      post :stop_recording
+    end
   end
-
-  # Ressources liées aux events
-  resources :events, only: [:index, :show, :new, :create]
 end
 
 
+
+  # Ressources liées aux events
+  resources :events, only: [:index, :show, :new, :create]
 end

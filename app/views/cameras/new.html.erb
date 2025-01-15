@@ -1,0 +1,10 @@
+<h1>Ajouter une caméra</h1>
+
+<%= form_with model: [@club, @camera], local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :name, "Nom de la caméra" %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <%= f.submit "Créer", class: "btn btn-primary" %>
+<% end %>

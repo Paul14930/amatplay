@@ -33,22 +33,45 @@ class CloudflareService
     put_live_input(input_id, { recording: { mode: "off" } })
   end
 
+  # def list_recordings(input_id)
+  #   account_id = ENV['CLOUDFLARE_ACCOUNT_ID']
+  #   url = "/accounts/#{account_id}/stream"
+  #   response = self.class.get(url, headers: @headers)
+
+  #   Rails.logger.debug "Cloudflare GET Recordings Response Code: #{response.code}"
+  #   Rails.logger.debug "Cloudflare GET Recordings Response Body: #{response.body}"
+
+  #   if response.success?
+  #     videos = JSON.parse(response.body)["result"]
+  #     # Filtrer les vidéos associées à l'input_id
+  #     videos.select { |video| video["liveInput"] == input_id }
+  #   else
+  #     []
+  #   end
+  # end
   def list_recordings(input_id)
     account_id = ENV['CLOUDFLARE_ACCOUNT_ID']
     url = "/accounts/#{account_id}/stream"
+
     response = self.class.get(url, headers: @headers)
 
     Rails.logger.debug "Cloudflare GET Recordings Response Code: #{response.code}"
     Rails.logger.debug "Cloudflare GET Recordings Response Body: #{response.body}"
 
     if response.success?
+      # Filtrer les vidéos associées au live_input_id
       videos = JSON.parse(response.body)["result"]
-      # Filtrer les vidéos associées à l'input_id
       videos.select { |video| video["liveInput"] == input_id }
     else
+      Rails.logger.error("Erreur lors de la récupération des vidéos : #{response.body}")
       []
     end
+  rescue StandardError => e
+    Rails.logger.error("Erreur inattendue : #{e.message}")
+    []
   end
+
+
 
 
 

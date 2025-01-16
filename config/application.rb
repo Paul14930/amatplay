@@ -13,6 +13,9 @@ module Amatplay
 
     config.active_job.queue_adapter = :sidekiq
 
+    config.time_zone = "Paris" # Ou tout autre fuseau horaire, ex: "Europe/Paris"
+    config.active_record.default_timezone = :local # Stocke les dates en heure locale
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

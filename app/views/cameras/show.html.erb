@@ -46,7 +46,7 @@
 <% end %>
 
 <h2>Programmer un enregistrement :</h2>
-<%= form_with model: [@camera, ScheduledRecording.new], local: true do |form| %>
+<%= form_with model: [@camera, ScheduledRecording.new], url: club_camera_scheduled_recordings_path(@camera.club, @camera), local: true do |form| %>
   <div>
     <%= form.label :start_time, "Date et heure de début" %>
     <%= form.datetime_local_field :start_time, required: true %>
@@ -57,6 +57,7 @@
   </div>
   <%= form.submit "Programmer", class: "btn btn-primary" %>
 <% end %>
+
 
 <h2>Enregistrements programmés :</h2>
 <% if @camera.scheduled_recordings.any? %>

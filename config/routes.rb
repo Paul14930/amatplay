@@ -23,6 +23,9 @@ Rails.application.routes.draw do
       post :start_recording
       post :stop_recording
     end
+
+    # Gestion des enregistrements programmés pour une caméra
+    resources :scheduled_recordings, only: [:create]
   end
 end
 

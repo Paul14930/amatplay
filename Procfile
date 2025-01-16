@@ -1,3 +1,3 @@
 web: bundle exec rails server -p $PORT
 css: bin/rails tailwindcss:watch
-worker: bundle exec rake streaming:start
+worker: bundle exec sidekiq -C config/sidekiq.yml

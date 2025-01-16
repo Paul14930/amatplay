@@ -44,3 +44,31 @@
 <% else %>
   <p>Aucun enregistrement disponible pour cette caméra.</p>
 <% end %>
+
+<h2>Programmer un enregistrement :</h2>
+<%= form_with model: [@camera, ScheduledRecording.new], local: true do |form| %>
+  <div>
+    <%= form.label :start_time, "Date et heure de début" %>
+    <%= form.datetime_local_field :start_time, required: true %>
+  </div>
+  <div>
+    <%= form.label :end_time, "Date et heure de fin" %>
+    <%= form.datetime_local_field :end_time, required: true %>
+  </div>
+  <%= form.submit "Programmer", class: "btn btn-primary" %>
+<% end %>
+
+<h2>Enregistrements programmés :</h2>
+<% if @camera.scheduled_recordings.any? %>
+  <ul>
+    <% @camera.scheduled_recordings.each do |recording| %>
+      <li>
+        <strong>Début :</strong> <%= recording.start_time %><br>
+        <strong>Fin :</strong> <%= recording.end_time %><br>
+        <strong>Statut :</strong> <%= recording.status %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Aucun enregistrement programmé.</p>
+<% end %>

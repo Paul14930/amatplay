@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  camera: one
+  start_time: 2025-01-16 15:34:08
+  end_time: 2025-01-16 15:34:08
+  status: MyString
+
+two:
+  camera: two
+  start_time: 2025-01-16 15:34:08
+  end_time: 2025-01-16 15:34:08
+  status: MyString

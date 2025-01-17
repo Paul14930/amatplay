@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "flowbite": "^2.5.2",
     "video.js": "^8.16.1"
   }
 }

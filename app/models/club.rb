@@ -1,6 +1,6 @@
 class Club < ApplicationRecord
   has_many :cameras, dependent: :destroy
-
+  has_many :contact_clubs, dependent: :destroy
   validates :name, presence: true
   validates :location, presence: true
   has_one_attached :image

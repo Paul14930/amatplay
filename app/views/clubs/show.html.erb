@@ -1,26 +1,104 @@
-<h1><%= @club.name %></h1>
-<p>Localisation : <%= @club.location %></p>
-
-
-<%= image_tag @club.image if @club.image.attached? %>
-
-
-<h2>Caméras</h2>
-<%= link_to "Ajouter une caméra", new_club_camera_path(@club), class: "btn btn-primary" %>
-
-<ul>
-  <% @club.cameras.each do |camera| %>
-    <li>
-        <p>
-    Caméra : <%= link_to camera.live_input_id, club_camera_path(@club, camera) %>
-  </p>
-      <strong>Caméra :</strong> <%= camera.live_input_id %>
-      <br>
-      <strong>Flux RTMP :</strong> <%= camera.rtmp_url %>
-      <br>
-      <strong>Playback URL :</strong> <%= camera.playback_url %>
-      <br>
-      <%= link_to "Supprimer", club_camera_path(@club, camera), method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger" %>
-    </li>
+<div class="container mx-auto px-4 py-8">
+  <% if @club.image.attached? %>
+    <div class="flex justify-center mb-8">
+      <%= image_tag @club.image, class: "rounded-lg shadow-lg max-w-full h-auto" %>
+    </div>
   <% end %>
-</ul>
+
+<div class="bg-white shadow-md rounded-lg p-6">
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold text-gray-800 mb-4"><%= @club.name %></h1>
+    <%= link_to "Modifier", edit_club_path(@club), class: "text-blue-500 hover:text-blue-600 underline text-sm" %>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <p class="text-gray-600"><strong>Description :</strong> <%= @club.description %></p>
+      <p class="text-gray-600"><strong>Location :</strong> <%= @club.location %></p>
+      <p class="text-gray-600"><strong>Adresse :</strong> <%= @club.adresse %></p>
+      <p class="text-gray-600"><strong>Code Postal :</strong> <%= @club.code_postal %></p>
+      <p class="text-gray-600"><strong>Ville :</strong> <%= @club.ville %></p>
+      <p class="text-gray-600"><strong>Téléphone :</strong> <%= @club.telephone %></p>
+    </div>
+    <div>
+      <p class="text-gray-600"><strong>Latitude :</strong> <%= @club.latitude %></p>
+      <p class="text-gray-600"><strong>Longitude :</strong> <%= @club.longitude %></p>
+    </div>
+  </div>
+</div>
+
+
+  <div class="bg-white shadow-md rounded-lg p-6 mt-6">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Streaming Information</h2>
+    <div class="space-y-2">
+      <p class="text-gray-600"><strong>Live Input ID :</strong> <%= @club.live_input_id %></p>
+      <p class="text-gray-600"><strong>RTMP URL :</strong> <%= @club.rtmp_url %></p>
+      <p class="text-gray-600"><strong>Playback URL :</strong> <%= @club.playback_url %></p>
+      <p class="text-gray-600"><strong>Image ID :</strong> <%= @club.image_id %></p>
+    </div>
+  </div>
+
+  <div class="bg-white shadow-md rounded-lg p-6 mt-6">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Dates</h2>
+    <div class="space-y-2">
+      <p class="text-gray-600"><strong>Créé le :</strong> <%= @club.created_at.strftime("%d/%m/%Y %H:%M:%S") %></p>
+      <p class="text-gray-600"><strong>Mis à jour le :</strong> <%= @club.updated_at.strftime("%d/%m/%Y %H:%M:%S") %></p>
+    </div>
+  </div>
+
+  <div class="bg-white shadow-md rounded-lg p-6 mt-6">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Caméras</h2>
+    <%= link_to "Ajouter une caméra", new_club_camera_path(@club), class: "bg-blue-500 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600" %>
+
+    <ul class="space-y-4 mt-4">
+      <% @club.cameras.each do |camera| %>
+        <li class="bg-gray-50 rounded-lg shadow-md p-4">
+          <p class="text-gray-600"><strong>Caméra :</strong> <%= link_to camera.live_input_id, club_camera_path(@club, camera), class: "text-blue-500 hover:underline" %></p>
+          <p class="text-gray-600"><strong>Flux RTMP :</strong> <%= camera.rtmp_url %></p>
+          <p class="text-gray-600"><strong>Playback URL :</strong> <%= camera.playback_url %></p>
+          <%= link_to "Supprimer", club_camera_path(@club, camera), method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: "bg-red-500 text-white py-1 px-3 rounded-lg shadow hover:bg-red-600 mt-2 inline-block" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="bg-white shadow-md rounded-lg p-6 mt-6">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Contacts associés</h2>
+    <%= link_to 'Ajouter un contact', new_club_contact_club_path(@club), class: 'bg-blue-500 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 mb-4 inline-block' %>
+
+    <% if @club.contact_clubs.present? %>
+      <table class="table-auto border-collapse border border-gray-300 w-full text-left mt-4">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="border border-gray-300 px-4 py-2">Civilité</th>
+            <th class="border border-gray-300 px-4 py-2">Nom</th>
+            <th class="border border-gray-300 px-4 py-2">Prénom</th>
+            <th class="border border-gray-300 px-4 py-2">Téléphone</th>
+            <th class="border border-gray-300 px-4 py-2">Email</th>
+            <th class="border border-gray-300 px-4 py-2">Qualité</th>
+            <th class="border border-gray-300 px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @club.contact_clubs.each do |contact| %>
+            <tr class="hover:bg-gray-100">
+              <td class="border border-gray-300 px-4 py-2"><%= contact.civilite %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= contact.nom %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= contact.prenom %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= contact.telephone %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= contact.mail %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= contact.qualite %></td>
+              <td class="border border-gray-300 px-4 py-2">
+                <%= link_to 'Voir', club_contact_club_path(@club, contact), class: 'text-blue-500 hover:underline' %> |
+                <%= link_to 'Modifier', edit_club_contact_club_path(@club, contact), class: 'text-yellow-500 hover:underline' %> |
+                <%= link_to 'Supprimer', club_contact_club_path(@club, contact), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: 'text-red-500 hover:underline' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="text-gray-600 mt-4">Aucun contact associé à ce club.</p>
+    <% end %>
+  </div>
+</div>

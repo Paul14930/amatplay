@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contact_clubs
   get 'events/index'
   get 'events/show'
   get 'events/new'
@@ -27,7 +28,11 @@ Rails.application.routes.draw do
     # Gestion des enregistrements programmés pour une caméra
     resources :scheduled_recordings, only: [:create]
   end
+
+  # Gestion des contacts associés à un club
+  resources :contact_clubs, only: [:new, :create, :edit, :update, :destroy, :show]
 end
+
 
 
 

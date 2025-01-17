@@ -1,4 +1,58 @@
-<div>
-  <h1 class="font-bold text-4xl">Clubs#edit</h1>
-  <p>Find me in app/views/clubs/edit.html.erb</p>
+<h1>Créer un nouveau club</h1>
+
+<%= form_with model: @club, local: true do |form| %>
+  <div>
+    <%= form.label :name, "Nom du club" %><br>
+    <%= form.text_field :name, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :location, "Localisation du club" %><br>
+    <%= form.text_field :location, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :description, "Description du club" %><br>
+    <%= form.text_area :description %>
+  </div>
+
+   <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+  </div>
+
+  <div class="field">
+  <%= form.label :adresse %>
+  <%= form.text_field :adresse %>
 </div>
+
+<div class="field">
+  <%= form.label :code_postal %>
+  <%= form.text_field :code_postal %>
+</div>
+
+<div class="field">
+  <%= form.label :ville %>
+  <%= form.text_field :ville %>
+</div>
+
+<div class="field">
+  <%= form.label :telephone %>
+  <%= form.text_field :telephone %>
+</div>
+
+<div class="field">
+  <%= form.label :latitude %>
+  <%= form.number_field :latitude, step: 0.000001 %>
+</div>
+
+<div class="field">
+  <%= form.label :longitude %>
+  <%= form.number_field :longitude, step: 0.000001 %>
+</div>
+
+
+  <div>
+    <%= form.submit "Créer le club" %>
+  </div>
+<% end %>

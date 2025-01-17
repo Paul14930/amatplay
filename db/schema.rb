@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_16_143408) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_16_180606) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -60,6 +60,25 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_16_143408) do
     t.string "rtmp_url"
     t.string "playback_url"
     t.string "image_id"
+    t.string "adresse"
+    t.string "code_postal"
+    t.string "ville"
+    t.string "telephone"
+    t.float "latitude"
+    t.float "longitude"
+  end
+
+  create_table "contact_clubs", force: :cascade do |t|
+    t.integer "club_id", null: false
+    t.string "nom"
+    t.string "prenom"
+    t.string "telephone"
+    t.string "mail"
+    t.string "civilite"
+    t.string "qualite"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_contact_clubs_on_club_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -85,6 +104,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_16_143408) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cameras", "clubs"
+  add_foreign_key "contact_clubs", "clubs"
   add_foreign_key "events", "clubs"
   add_foreign_key "scheduled_recordings", "cameras"
 end

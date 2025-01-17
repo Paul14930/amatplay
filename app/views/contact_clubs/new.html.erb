@@ -1,0 +1,27 @@
+<%= form_with model: [@club, @contact_club], local: true do |form| %>
+  <div>
+    <%= form.label :nom, "Nom" %>
+    <%= form.text_field :nom, required: true %>
+  </div>
+  <div>
+    <%= form.label :prenom, "Prénom" %>
+    <%= form.text_field :prenom, required: true %>
+  </div>
+  <div>
+    <%= form.label :telephone, "Téléphone" %>
+    <%= form.telephone_field :telephone, required: true %>
+  </div>
+  <div>
+    <%= form.label :mail, "Email" %>
+    <%= form.email_field :mail, required: true %>
+  </div>
+  <div>
+    <%= form.label :civilite, "Civilité" %>
+    <%= form.text_field :civilite %>
+  </div>
+  <div>
+    <%= form.label :qualite, "Qualité" %>
+    <%= form.text_field :qualite %>
+  </div>
+  <%= form.submit "Créer le contact", class: "btn btn-primary" %>
+<% end %>
